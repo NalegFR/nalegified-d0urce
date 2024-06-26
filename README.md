@@ -2,9 +2,9 @@
 I just wondered how I could code in some features I wanted in prettier or prettier d0urce.
 So, I learnt javascript for like 2 days and brought this to life.
 This can be really unstable because I'm not a pro javascript programmer at all  
-**This is currently made on version 1.5.1 of prettier d0urce**
+**This is currently made on version 1.6.2 of prettier d0urce**
 ## New features
-- Customizable image background
+- ~~Customizable image background~~ Was added to Xen0o2's prettier
 - That's it
 - For now at least
 - I swear I will code in more things
@@ -28,6 +28,5 @@ This is due to how d0urce works. Try opening the log, then wait until it shows "
 - Update to new d0urce version
 - Display BTC amount on profile instead of username
 - Colors for background
-- ~~Definitely fix counterhacking~~ done in new prettier version
 - NPC Editor (change locally NPC's name, descriptions, and PFPs) (how am I gonna do that)
 - More things when I'll get the idea
