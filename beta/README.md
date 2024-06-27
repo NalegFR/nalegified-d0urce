@@ -1,4 +1,4 @@
-# BETA NOT UP TO DATE
+# BETA IS FUCKED
 **Prettier & d0urce updates changed the code so much that I have to remake everything**  
 
 # THIS VERSION IS UNSTABLE
