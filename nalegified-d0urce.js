@@ -2,8 +2,7 @@
 // @name         nalegified-d0urce
 // @version      2024-06-21
 // @description  Get a prettier s0urce.io environment!
-// @author       Naleg
-// @originator   d0t & Xen0o2
+// @author       Xen0o2, d0t, Naleg
 // @match        https://s0urce.io/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=s0urce.io
 // @downloadURL  https://raw.githubusercontent.com/NalegFR/nalegified-d0urce/main/d0urce-prettier.js

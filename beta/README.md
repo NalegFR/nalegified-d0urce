@@ -1,3 +1,6 @@
+# BETA NOT UP TO DATE
+**Prettier & d0urce updates changed the code so much that I have to remake everything**  
+
 # THIS VERSION IS UNSTABLE
 The beta version mostly adds bases to new features
 Current beta only features are :
