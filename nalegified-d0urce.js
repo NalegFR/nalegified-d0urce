@@ -1,5 +1,6 @@
 // ==UserScript==
 // @name         nalegified-d0urce
+// @namespace    http://tampermonkey.net/
 // @version      1.6.4
 // @description  Get a prettier s0urce.io environment! Template made by Xen0o2.
 // @author       Xen0o2, d0t, Naleg
