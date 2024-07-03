@@ -1284,6 +1284,8 @@ const stats = {
         message.innerHTML = message.innerHTML
             .replace("System started.<br>", "")
             .replace("s0urceOS 2023", "✨ Prettier s0urce ✨")
+            .replace(">.", ">. <br><span style='font-size: 0.8rem; color: var(--color-lightgrey);'>Tweaked by <span style='color: yellow; text-shadow: 0 0 3px chartreuse'>Naleg</span> 👀.</span>")
+            .replace(">.", ">. <br><span style='font-size: 0.8rem; color: var(--color-lightgrey);'>Expanded by <span style='color: chartreuse; text-shadow: 0 0 3px chartreuse'>d0t</span> 😍.</span>")
             .replace(">.", ">. <br><span style='font-size: 0.8rem; color: var(--color-lightgrey);'>Made with ❤️ by <span style='color: pink; text-shadow: 0 0 3px pink'>Xen0o2</span>.</span>");
 
         sendLog(`
