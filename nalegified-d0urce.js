@@ -6,8 +6,8 @@
 // @match        https://s0urce.io/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=s0urce.io
 // @grant        none
-// @downloadURL  https://raw.githubusercontent.com/d0t3k1/d0t-s0urce-prettier/main/d0urce-prettier.js
-// @updateURL    https://raw.githubusercontent.com/d0t3k1/d0t-s0urce-prettier/main/d0urce-prettier.js
+// @downloadURL  https://raw.githubusercontent.com/NalegFR/nalegified-d0urce/main/nalegified-d0urce.js
+// @updateURL    https://raw.githubusercontent.com/NalegFR/nalegified-d0urce/main/nalegified-d0urce.js
 // ==/UserScript==
 
 const VERSION = "1.6.3"
