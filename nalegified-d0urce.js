@@ -1,21 +1,24 @@
 // ==UserScript==
-// @name         nalegified-d0urce
-// @version      2024-06-21
-// @description  Get a prettier s0urce.io environment!
+// @name         beta-nalegified-d0urce
+// @version      1.6.4
+// @description  Get a prettier s0urce.io environment! Template made by Xen0o2.
 // @author       Xen0o2, d0t, Naleg
 // @match        https://s0urce.io/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=s0urce.io
-// @downloadURL  https://raw.githubusercontent.com/NalegFR/nalegified-d0urce/main/d0urce-prettier.js
-// @updateURL    https://raw.githubusercontent.com/NalegFR/nalegified-d0urce/main/d0urce-prettier.js
 // @grant        none
+// @downloadURL  https://raw.githubusercontent.com/d0t3k1/d0t-s0urce-prettier/main/d0urce-prettier.js
+// @updateURL    https://raw.githubusercontent.com/d0t3k1/d0t-s0urce-prettier/main/d0urce-prettier.js
 // ==/UserScript==
+
+const VERSION = "1.6.3"
 
 const themes = {
     "No Theme": "",
-    "Atom One": "pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{color:#abb2bf;}.hljs-comment,.hljs-quote{color:#5c6370;font-style:italic}.hljs-doctag,.hljs-formula,.hljs-keyword{color:#c678dd}.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#e06c75}.hljs-literal{color:#56b6c2}.hljs-addition,.hljs-attribute,.hljs-meta .hljs-string,.hljs-regexp,.hljs-string{color:#98c379}.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#d19a66}.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#61aeee}.hljs-built_in,.hljs-class .hljs-title,.hljs-title.class_{color:#e6c07b}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}.hljs-link{text-decoration:underline}",
-    "Monokai": "pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{color:#f8f8f2}.hljs-subst,.hljs-tag{color:#f8f8f2}.hljs-emphasis,.hljs-strong{color:#a8a8a2}.hljs-bullet,.hljs-link,.hljs-literal,.hljs-number,.hljs-quote,.hljs-regexp{color:#ae81ff}.hljs-code,.hljs-section,.hljs-selector-class,.hljs-title{color:#a6e22e}.hljs-strong{font-weight:700}.hljs-emphasis{font-style:italic}.hljs-attr,.hljs-keyword,.hljs-name,.hljs-selector-tag{color:#f92672}.hljs-attribute,.hljs-symbol{color:#66d9ef}.hljs-class .hljs-title,.hljs-params,.hljs-title.class_{color:#f8f8f2}.hljs-addition,.hljs-built_in,.hljs-selector-attr,.hljs-selector-id,.hljs-selector-pseudo,.hljs-string,.hljs-template-variable,.hljs-type,.hljs-variable{color:#e6db74}.hljs-comment,.hljs-deletion,.hljs-meta{color:#75715e}",
-    "Github": "pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{color:#c9d1d9;}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-variable{color:#79c0ff}.hljs-meta .hljs-string,.hljs-regexp,.hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-code,.hljs-comment,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-pseudo,.hljs-selector-tag{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}",
-    "Night Owl": "pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{color:#d6deeb}.hljs-keyword{color:#c792ea;font-style:italic}.hljs-built_in{color:#addb67;font-style:italic}.hljs-type{color:#82aaff}.hljs-literal{color:#ff5874}.hljs-number{color:#f78c6c}.hljs-regexp{color:#5ca7e4}.hljs-string{color:#ecc48d}.hljs-subst{color:#d3423e}.hljs-symbol{color:#82aaff}.hljs-class{color:#ffcb8b}.hljs-function{color:#82aaff}.hljs-title{color:#dcdcaa;font-style:italic}.hljs-params{color:#7fdbca}.hljs-comment{color:#637777;font-style:italic}.hljs-doctag{color:#7fdbca}.hljs-meta,.hljs-meta .hljs-keyword{color:#82aaff}.hljs-meta .hljs-string{color:#ecc48d}.hljs-section{color:#82b1ff}.hljs-attr,.hljs-name,.hljs-tag{color:#7fdbca}.hljs-attribute{color:#80cbc4}.hljs-variable{color:#addb67}.hljs-bullet{color:#d9f5dd}.hljs-code{color:#80cbc4}.hljs-emphasis{color:#c792ea;font-style:italic}.hljs-strong{color:#addb67;font-weight:700}.hljs-formula{color:#c792ea}.hljs-link{color:#ff869a}.hljs-quote{color:#697098;font-style:italic}.hljs-selector-tag{color:#ff6363}.hljs-selector-id{color:#fad430}.hljs-selector-class{color:#addb67;font-style:italic}.hljs-selector-attr,.hljs-selector-pseudo{color:#c792ea;font-style:italic}.hljs-template-tag{color:#c792ea}.hljs-template-variable{color:#addb67}.hljs-addition{color:#addb67ff;font-style:italic}.hljs-deletion{color:#ef535090;font-style:italic}",
+    "Atom One": ":root{--color-terminal:#8e00ff;--color-darkgreen:#8e00ff2f} .window:has(.window-title > img[src='icons/terminal.svg']){border-color: #8e00ff} .window:has(.window-title > img[src='icons/terminal.svg']) .wrapper{border: 1px solid var(--color-terminal); background-color: transparent} #section-code{background: linear-gradient(180deg, #000000 3%, #8e00ff26 123%)} #themes{border: 1px solid #8e00ff} .target-bar{outline: 1px solid #8e00ff !important} .target-bar-progress{filter: brightness(0) saturate(100%) invert(16%) sepia(99%) saturate(7248%) hue-rotate(275deg) brightness(96%) contrast(122%);} pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{color:#abb2bf;}.hljs-comment,.hljs-quote{color:#5c6370;font-style:italic}.hljs-doctag,.hljs-formula,.hljs-keyword{color:#c678dd}.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#e06c75}.hljs-literal{color:#56b6c2}.hljs-addition,.hljs-attribute,.hljs-meta .hljs-string,.hljs-regexp,.hljs-string{color:#98c379}.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#d19a66}.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#61aeee}.hljs-built_in,.hljs-class .hljs-title,.hljs-title.class_{color:#e6c07b}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}.hljs-link{text-decoration:underline}",
+    "Monokai": ":root{--color-terminal:#e22e2e;--color-darkgreen:#e22e2e2f} .window:has(.window-title > img[src='icons/terminal.svg']){border-color: #e22e2e} .window:has(.window-title > img[src='icons/terminal.svg']) .wrapper{border: 1px solid var(--color-terminal); background-color: transparent} #section-code{background: linear-gradient(180deg, #000000 3%, #e22e2e26 123%)} #themes{border: 1px solid #e22e2e} .target-bar{outline: 1px solid #e22e2e !important} .target-bar-progress{filter: brightness(0) saturate(100%) invert(36%) sepia(95%) saturate(1861%) hue-rotate(337deg) brightness(86%) contrast(108%);} pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{color:#f8f8f2}.hljs-subst,.hljs-tag{color:#f8f8f2}.hljs-emphasis,.hljs-strong{color:#a8a8a2}.hljs-bullet,.hljs-link,.hljs-literal,.hljs-number,.hljs-quote,.hljs-regexp{color:#ae81ff}.hljs-code,.hljs-section,.hljs-selector-class,.hljs-title{color:#a6e22e}.hljs-strong{font-weight:700}.hljs-emphasis{font-style:italic}.hljs-attr,.hljs-keyword,.hljs-name,.hljs-selector-tag{color:#f92672}.hljs-attribute,.hljs-symbol{color:#66d9ef}.hljs-class .hljs-title,.hljs-params,.hljs-title.class_{color:#f8f8f2}.hljs-addition,.hljs-built_in,.hljs-selector-attr,.hljs-selector-id,.hljs-selector-pseudo,.hljs-string,.hljs-template-variable,.hljs-type,.hljs-variable{color:#e6db74}.hljs-comment,.hljs-deletion,.hljs-meta{color:#75715e}",
+    "Github": ":root{--color-terminal:#2f2ee2;--color-darkgreen:#2f2ee22f} .window:has(.window-title > img[src='icons/terminal.svg']){border-color: #2f2ee2} .window:has(.window-title > img[src='icons/terminal.svg']) .wrapper{border: 1px solid var(--color-terminal); background-color: transparent} #section-code{background: linear-gradient(180deg, #000000 3%, #2f2ee226 123%)} #themes{border: 1px solid #2f2ee2} .target-bar{outline: 1px solid #2f2ee2 !important} .target-bar-progress{filter: brightness(0) saturate(100%) invert(19%) sepia(89%) saturate(6281%) hue-rotate(244deg) brightness(88%) contrast(101%);} pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{color:#c9d1d9;}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-variable{color:#79c0ff}.hljs-meta .hljs-string,.hljs-regexp,.hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-code,.hljs-comment,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-pseudo,.hljs-selector-tag{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}",
+    "Night Owl": ":root{--color-terminal:#825f00;--color-darkgreen:#825f002f} .window:has(.window-title > img[src='icons/terminal.svg']){border-color: #825f00} .window:has(.window-title > img[src='icons/terminal.svg']) .wrapper{border: 1px solid var(--color-terminal); background-color: transparent} #section-code{background: linear-gradient(180deg, #000000 3%, #825f0026 123%)} #themes{border: 1px solid #825f00} .target-bar{outline: 1px solid #825f00 !important} .target-bar-progress{filter: brightness(0) saturate(100%) invert(27%) sepia(88%) saturate(1363%) hue-rotate(32deg) brightness(99%) contrast(101%);} pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{color:#d6deeb}.hljs-keyword{color:#c792ea;font-style:italic}.hljs-built_in{color:#addb67;font-style:italic}.hljs-type{color:#82aaff}.hljs-literal{color:#ff5874}.hljs-number{color:#f78c6c}.hljs-regexp{color:#5ca7e4}.hljs-string{color:#ecc48d}.hljs-subst{color:#d3423e}.hljs-symbol{color:#82aaff}.hljs-class{color:#ffcb8b}.hljs-function{color:#82aaff}.hljs-title{color:#dcdcaa;font-style:italic}.hljs-params{color:#7fdbca}.hljs-comment{color:#637777;font-style:italic}.hljs-doctag{color:#7fdbca}.hljs-meta,.hljs-meta .hljs-keyword{color:#82aaff}.hljs-meta .hljs-string{color:#ecc48d}.hljs-section{color:#82b1ff}.hljs-attr,.hljs-name,.hljs-tag{color:#7fdbca}.hljs-attribute{color:#80cbc4}.hljs-variable{color:#addb67}.hljs-bullet{color:#d9f5dd}.hljs-code{color:#80cbc4}.hljs-emphasis{color:#c792ea;font-style:italic}.hljs-strong{color:#addb67;font-weight:700}.hljs-formula{color:#c792ea}.hljs-link{color:#ff869a}.hljs-quote{color:#697098;font-style:italic}.hljs-selector-tag{color:#ff6363}.hljs-selector-id{color:#fad430}.hljs-selector-class{color:#addb67;font-style:italic}.hljs-selector-attr,.hljs-selector-pseudo{color:#c792ea;font-style:italic}.hljs-template-tag{color:#c792ea}.hljs-template-variable{color:#addb67}.hljs-addition{color:#addb67ff;font-style:italic}.hljs-deletion{color:#ef535090;font-style:italic}",
+    "Flashbang": ":root{--color-terminal:#ffffff;--color-darkgreen:#ffffff2f} .window:has(.window-title > img[src='icons/terminal.svg']){border-color: #ffffff} .window:has(.window-title > img[src='icons/terminal.svg']) .wrapper{border: 1px solid var(--color-terminal); background-color: transparent} #section-code{background: linear-gradient(180deg, #000000 3%, #ffffff26 123%)} #themes{border: 1px solid #ffffff} .target-bar{outline: 1px solid #ffffff !important} pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{color:#ffffff}.hljs-keyword{color:#ffffff;font-style:italic}.hljs-built_in{color:#ffffff;font-style:italic}.hljs-type{color:#ffffff}.hljs-literal{color:#ffffff}.hljs-number{color:#ffffff}.hljs-regexp{color:#ffffff}.hljs-string{color:#ffffff}.hljs-subst{color:#ffffff}.hljs-symbol{color:#ffffff}.hljs-class{color:#ffffff}.hljs-function{color:#ffffff}.hljs-title{color:#ffffff;font-style:italic}.hljs-params{color:#ffffff}.hljs-comment{color:#ffffff;font-style:italic}.hljs-doctag{color:#ffffff}.hljs-meta,.hljs-meta .hljs-keyword{color:#ffffff}.hljs-meta .hljs-string{color:#ffffff}.hljs-section{color:#ffffff}.hljs-attr,.hljs-name,.hljs-tag{color:#ffffff}.hljs-attribute{color:#ffffff}.hljs-variable{color:#ffffff}.hljs-bullet{color:#ffffff}.hljs-code{color:#ffffff}.hljs-emphasis{color:#ffffff;font-style:italic}.hljs-strong{color:#ffffff;font-weight:700}.hljs-formula{color:#c792ea}.hljs-link{color:#ffffff}.hljs-quote{color:#ffffff;font-style:italic}.hljs-selector-tag{color:#ffffff}.hljs-selector-id{color:#ffffff}.hljs-selector-class{color:#ffffff;font-style:italic}.hljs-selector-attr,.hljs-selector-pseudo{color:#ffffff;font-style:italic}.hljs-template-tag{color:#ffffff}.hljs-template-variable{color:#ffffff}.hljs-addition{color:#ffffff;font-style:italic}.hljs-deletion{color:#ffffff;font-style:italic}",
 }
 
 class Component {
@@ -67,22 +70,152 @@ class Component {
 	}
 }
 
+const removeContextMenu = (removeSelection) => {
+    document.querySelector(".context-menu-container")?.remove();
+    const selectedItem = document.querySelectorAll(".item-selected")
+    selectedItem.forEach(item => {
+        item.style.outline = null;
+        item.classList.remove("item-selected")
+    })
+    if (removeSelection)
+        player.selectedItems = [];
+}
+
+class Popup {
+    #popup;
+    #dimensions = {
+        width: 150,
+        height: 0,
+    }
+    #pointer;
+    constructor (pointer) {
+        this.#pointer = pointer;
+        const popup = new Component("div", {
+            classList: ["context-menu", "context-menu-container"],
+            style: {
+                position: "absolute", width: `${this.#dimensions.width}px`,
+                backgroundColor: "#000000E6", borderRadius: "8px", display: "flex", flexDirection: "column", gap: "5px", zIndex: "1000", padding: "5px",
+                boxShadow: "5px 5px 15px 5px #000000",
+                border: "1px solid #ffffff66"
+            },
+            children: [
+                new Component("div", {
+                    classList: ["context-menu", "context-menu-title"],
+                    style: { color: "var(--color-lightgrey)", padding: "7px", order: 1, fontSize: "10px", borderTop: "1px solid var(--color-lightgrey)", display: "none" }
+                })
+            ]
+        })
+        this.#popup = popup.element;
+        return this;
+    }
+
+    #getPosition = (pointer, dimensions) => {
+        const finalPosition = {...pointer};
+        const windowDimensions = { height: document.body.clientHeight, width: document.body.clientWidth };
+        
+        if (pointer.clientY > windowDimensions.height - (dimensions.height + 20))
+            finalPosition.clientY -= (dimensions.height + 10);
+        else
+            finalPosition.clientY += 10;
+        if (pointer.clientX > windowDimensions.width - (dimensions.width + 20))
+            finalPosition.clientX -= (dimensions.width + 10);
+        else
+            finalPosition.clientX += 10;
+        return finalPosition;
+    }
+
+    setTitle(text) {
+        this.#popup.querySelector(".context-menu-title").innerText = text;
+        this.#popup.querySelector(".context-menu-title").style.display = "flex";
+    }
+
+    addAction(text, action, option = {isDangerous: false, selectionLimit: 0}) {
+        const component = new Component("div", {
+            classList: [
+                "context-menu",
+                "context-menu-option",
+                "context-menu-option-" + (this.#dimensions.height / 40 + 1),
+                "context-menu-option-limit-" + option.selectionLimit,
+            ],
+            innerText: text,
+            style: { width: "100%", borderRadius: "4px", padding: "5px", cursor: "pointer", color: option.isDangerous ? "var(--color-red)" : "white" },
+            onmouseenter: (e) => e.target.style.backgroundColor = "#5be22e66",
+            onmouseleave: (e) => e.target.style.backgroundColor = "unset",
+            onclick: async () => {
+                removeContextMenu();
+                if (action)
+                    await action();
+                player.selectedItems = [];
+            },
+        })
+        this.#popup.appendChild(component.element);
+        this.#dimensions.height += 40;
+        return this;
+    }
+
+    create() {
+        const position = this.#getPosition(this.#pointer, this.#dimensions);
+        this.#popup.style.top = `${position.clientY}px`;
+        this.#popup.style.left = `${position.clientX}px`,
+        document.body.appendChild(this.#popup);
+    }
+}
+
+const windowNames = [
+    "Filament",
+    "Inventory",
+    "Item Seller",
+    "Computer",
+]
+
+const lootRarity = [
+    { name: "common",    color: "linear-gradient(211deg, #585d66 0%, #7d848f 100%)" },
+    { name: "uncommon",  color: "linear-gradient(211deg, #007c37 0%, #83b200 100%)" },
+    { name: "rare",      color: "linear-gradient(211deg, #00427c 0%, #0092ed 100%)" },
+    { name: "epic",      color: "linear-gradient(211deg, #5c045a 0%, #a90052 100%)" },
+    { name: "legendary", color: "linear-gradient(112deg, #a95300 4%, #ff9605 34%, #a95300 66%, #ff9605 100%)" },
+    { name: "mythic",    color: "linear-gradient(112deg, #40f5ff 4%, #05a8ff 34%, #40f5ff 66%, #05a8ff 100%)" },
+    { name: "ethereal",    color: "linear-gradient(112deg, #ffb74e 4%, #ffe6a2 34%, #ffb74e 66%, #ffe6a2 100%)" },
+];
+
+const raritiesVariables = {
+    "var(--color-SSS)": "ethereal",
+    "var(--color-SS)": "mythic",
+    "var(--color-S)" : "legendary",
+    "var(--color-A)" : "epic",
+    "var(--color-B)" : "rare",
+    "var(--color-C)" : "uncommon",
+    "var(--color-D)" : "common"
+}
+
+const lootButtons = {
+    "take" : "button > img[src='icons/inventory.svg']",
+    "sell" : "button > img[src='icons/btc.svg']",
+    "shred": "button > img[src='icons/filament.svg']"
+}
+
 const player = {
     username: document.querySelector("img[src='icons/online.svg']")?.parentNode?.innerText?.trim(),
     hacksInProgress: [],
     currentlyHacking: null,
     lastHacked: null,
     configuration: {
+        openInSilent: [],
         displayCustomFilament: true,
         currentTheme: localStorage.getItem("prettier-currentTheme") || Object.keys(themes)[0],
+        codeSyntaxing: !!localStorage.getItem("prettier-codeSyntaxing")
     },
+    input: {
+        isShiftDown: false,
+    },
+    selectedItems: [],
     autoloot: localStorage.getItem("prettier-autoloot") ? 
         JSON.parse(localStorage.getItem("prettier-autoloot")) :
         {
-            common: "shred",
-            uncommon: "shred",
-            rare: "shred",
-            epic: "shred",
+            common: "take",
+            uncommon: "take",
+            rare: "take",
+            epic: "take",
             legendary: "take",
             mythic: "take",
             ethereal: "take",
@@ -147,7 +280,6 @@ const stats = {
 	psu_term: [
     	1.2, 1.4, 1.6, 1.7, 1.9, 2, 2.2
     ],
-    // Last updated as of 6/21/2024
     filament_price: [
         0.01, 0.03, 0.1, 0.3, 1.5, 4.5, 45
     ],
@@ -155,7 +287,6 @@ const stats = {
 
 (function() {
     'use strict';
-    let hideOnOpen = false;
 
     const sleep = (ms) => {
         return new Promise(resolve => setTimeout(resolve, ms));
@@ -169,7 +300,6 @@ const stats = {
     }
 
     const prettierLoadFails = (code) => {
-        hideOnOpen = false;
         alert(`Prettier-s0urce loading failed, please contact Xen0o2 on Discord (error code: ${code})`);
     }
 
@@ -208,7 +338,7 @@ const stats = {
     const colorizeTerminal = async () => {
         const codeElement = document.querySelector("#code-list");
         const codeSection = document.querySelector("#section-code");
-        if (!codeElement || !codeSection) return;
+        if (!codeElement || !codeSection || !player.configuration.codeSyntaxing) return;
         document.querySelector("#highlighted")?.remove();
 
         codeElement.style.display = "none";
@@ -238,42 +368,98 @@ const stats = {
 
         const component = new Component("div", {
             classList: ["svelte-1fdvo7g"],
-            style: { height: "30px", width: "59%", display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "10px" },
+            style: { height: "30px", width: "100%", display: "flex", alignItems: "center", marginTop: "10px", gap: "20px" },
             children: [
-                new Component("span", {
-                    innerText: "Theme",
+                new Component("div", {
+                    style: { display: "flex", gap: "67px", height: "100%", alignItems: "center" },
+                    children: [
+                        new Component("span", {
+                            innerText: "Theme",
+                        }),
+                        new Component("div", {
+                            style: { textAlign: "left", position: "relative", height: "100%", width: "150px", display: "flex", justifyContent: "center", alignItems: "center", border: "1px solid var(--color-terminal)", borderRadius: "2px", fontFamily: "var(--font-family-2)", color: "var(--color-terminal)", fontWeight: 500 },
+                            children: [
+                                new Component("div", {
+                                    style: { display: "flex", justifyContent: "space-between", alignItems: "center", width: "85%" },
+                                    children: [
+                                        new Component("span", {
+                                            id: "selected-theme",
+                                            innerText: player.configuration.currentTheme,
+                                        }),
+                                        new Component("img", {
+                                            src: "https://upload.wikimedia.org/wikipedia/commons/9/96/Chevron-icon-drop-down-menu-WHITE.png",
+                                            style: { height: "10px", opacity: "0.8" }
+                                        }),
+                                    ]
+                                }),
+                                new Component("select", {
+                                    style: { position: "absolute", left: 0, height: "100%", width: "100%", opacity: "0" },
+                                    onchange: (e) => {
+                                        player.configuration.currentTheme = e.target.value;
+                                        localStorage.setItem("prettier-currentTheme", e.target.value);
+                                        document.querySelector("#selected-theme").innerText = e.target.value;
+                                        updateThemeStyle();
+                                    },
+                                    children: Object.keys(themes).map(theme => {
+                                        return new Component("option", {
+                                            value: theme,
+                                            innerText: theme,
+                                            selected: theme === player.configuration.currentTheme
+                                        })
+                                    })
+                                })
+                            ]
+                        })
+                    ]
                 }),
                 new Component("div", {
-                    style: { textAlign: "left", position: "relative", height: "100%", width: "200px", display: "flex", justifyContent: "center", alignItems: "center", border: "1px solid var(--color-terminal)", borderRadius: "2px", fontFamily: "var(--font-family-2)", color: "var(--color-terminal)", fontWeight: 500 },
+                    style: { display: "flex", height: "100%", alignItems: "center", gap: "20px" },
                     children: [
-                        new Component("div", {
-                            style: { display: "flex", justifyContent: "space-between", alignItems: "center", width: "85%" },
-                            children: [
-                                new Component("span", {
-                                    id: "selected-theme",
-                                    innerText: player.configuration.currentTheme,
-                                }),
-                                new Component("img", {
-                                    src: "https://upload.wikimedia.org/wikipedia/commons/9/96/Chevron-icon-drop-down-menu-WHITE.png",
-                                    style: { height: "10px", opacity: "0.8" }
-                                }),
-                            ]
+                        new Component("span", {
+                            innerText: "Code Syntaxing",
                         }),
-                        new Component("select", {
-                            style: { position: "absolute", left: 0, height: "100%", width: "100%", opacity: "0" },
-                            onchange: (e) => {
-                                player.configuration.currentTheme = e.target.value;
-                                localStorage.setItem("prettier-currentTheme", e.target.value);
-                                document.querySelector("#selected-theme").innerText = e.target.value;
-                                updateThemeStyle();
+                        new Component("div", {
+                            classList: ["toggle-button"],
+                            style: { 
+                                height: "100%",
+                                width: "55px",
+                                backgroundColor: "var(--color-darkgreen)",
+                                borderRadius: "100px",
+                                position: "relative",
+                                display: "flex",
+                                alignItems: "center",
+                                cursor: "pointer",
+                                border: (player.configuration.codeSyntaxing ? "1px solid var(--color-terminal)" : "1px solid var(--color-subText-silver)")
                             },
-                            children: Object.keys(themes).map(theme => {
-                                return new Component("option", {
-                                    value: theme,
-                                    innerText: theme,
-                                    selected: theme === player.configuration.currentTheme
+                            children: [
+                                new Component("div", {
+                                    classList: ["toggle-button-pointer"],
+                                    style: {
+                                        position: "absolute",
+                                        height: "90%",
+                                        width: "26px",
+                                        backgroundColor: (player.configuration.codeSyntaxing ? "var(--color-terminal)" : "var(--color-subText-silver)"),
+                                        borderRadius: "100px",
+                                        left: (player.configuration.codeSyntaxing ? "25px" : "2px"),
+                                        transitionDuration: "0.2s" 
+                                    }
                                 })
-                            })
+                            ],
+                            onclick: (e) => {
+                                const target = e.target.classList.contains("toggle-button-pointer") ? e.target.parentNode : e.target;
+                                if (player.configuration.codeSyntaxing) {
+                                    target.style.border = "1px solid var(--color-subText-silver)";
+                                    target.querySelector(".toggle-button-pointer").style.left = "2px";
+                                    target.querySelector(".toggle-button-pointer").style.backgroundColor = "var(--color-subText-silver)";
+                                    localStorage.removeItem("prettier-codeSyntaxing");
+                                } else {
+                                    target.style.border = "1px solid var(--color-terminal)";
+                                    target.querySelector(".toggle-button-pointer").style.left = "25px";
+                                    target.querySelector(".toggle-button-pointer").style.backgroundColor = "var(--color-terminal)";
+                                    localStorage.setItem("prettier-codeSyntaxing", "true");
+                                }
+                                player.configuration.codeSyntaxing = !player.configuration.codeSyntaxing
+                            }
                         })
                     ]
                 })
@@ -539,6 +725,7 @@ const stats = {
                     clearInterval(loop);
             }
         }, interval);
+
     }
     
     const logObserver = new MutationObserver(function(mutations) {
@@ -590,45 +777,44 @@ const stats = {
     })
 
     const firewallEncryption = (hp, rd, regen, ad, ms) => {
-    	rd /= 100;
-	const cShort = [3.7027,100];
-	const cMed = [8.2857,ad*3];
-	const cLong = [13.421,ms*3];
-	return [1000+hp*3, rd*3, regen*3*.3, (cShort[0]*cShort[1]+cMed[0]*cMed[1]+cLong[0]*cLong[1])/(cShort[1]+cMed[1]+cLong[1])];
+        rd /= 100;
+        const cShort = [3.7027,100];
+        const cMed = [8.2857,ad*3];
+        const cLong = [13.421,ms*3];
+
+        return [1000+hp*3, rd*3, regen*3*.3, (cShort[0]*cShort[1]+cMed[0]*cMed[1]+cLong[0]*cLong[1])/(cShort[1]+cMed[1]+cLong[1])];
     }
 
     const penTest = (port, cpu, aTPH) => {
-	var t = 0;
-	while (1) {
-		const damage = cpu[0]*(1+cpu[1]-port[1])+cpu[2];
-		if (port[0] - damage + port[2]*aTPH <= 0) {
-			return t + aTPH*(port[0]+port[2]*aTPH)/damage;
-		} else {
-			port[0] -= damage;
-			port[0] += port[2]*aTPH;
-			t += aTPH;
-		}
-	}
+        let t = 0;
+        while (true) {
+            const damage = cpu[0]*(1+cpu[1]-port[1])+cpu[2];
+
+            if (port[0] - damage + port[2]*aTPH <= 0)
+                return t + aTPH*(port[0]+port[2]*aTPH)/damage;
+            else {
+                port[0] -= damage;
+                port[0] += port[2]*aTPH;
+                t += aTPH;
+            }
+        }
     }
 
     const netBTCperHour = (idle, barter, crypto) => {
         const npcsPerHour = 27.69;
-        // Based on 1 Hour of Grinding returns
         idle *= 3600;
-        // Maximum bartering benefit is selling uncommons, assuming it is used:
         barter /= 100;
         barter = ((1+barter)*0.00864000-0.00864000) * npcsPerHour;
-        // Hack bonus, similar to bartering
         crypto /= 100;
         crypto = ((1+crypto)*0.00180000-0.00180000) * npcsPerHour;
+
         return idle + barter + crypto;
     }
 
     const dPS = (dTI,level,rarity,type) => {
-        var basePrice = stats.filament_price[rarity];
+        let basePrice = stats.filament_price[rarity];
         const value = (level-1)*3*basePrice + basePrice;
         if (type != "cpu" && type != "router") basePrice /= 2
-        console.log(basePrice)
         if (rarity < 5) {
             if (dTI < 7) return (value).toFixed(4);
             else if (dTI < 8) return "~" + (value + (dTI-7)*basePrice/3).toFixed(4);
@@ -650,7 +836,6 @@ const stats = {
             else if (dTI < 9) return "~" + (value + (dTI-8)*basePrice*2 + basePrice*2).toFixed(4);
             else if (dTI < 9.5) return "~" + (value + (dTI-8)*basePrice*5 + basePrice*4).toFixed(4);
         }
-        // If there's no estimated price for it, chances are it's worth a lot
         return "Invaluable";
     }
 
@@ -661,16 +846,17 @@ const stats = {
         const actualGPU = netBTCperHour(idle,barter,crypto);
         const qualityRange = bestGPU - worstGPU;
         const actualRange = actualGPU - worstGPU;
-        var gpuRank = 1+((actualRange/qualityRange)*9);
+        let gpuRank = 1+((actualRange/qualityRange)*9);
         if (gpuRank < 1) gpuRank = 1;
+
         return gpuRank;
     }
 
     const boostBTCperHour = (boost,rarity) => {
-        var idle = stats.gpu[rarity].idle[1]+stats.gpu_term[rarity]
-        idle *= 3600
-        boost /= 100
-        return idle*(1+boost) - idle
+        const idle = (stats.gpu[rarity].idle[1]+stats.gpu_term[rarity]) * 3600
+        boost /= 100;
+
+        return idle*(1+boost) - idle;
     }
 
     const dPI = (boost,level,rarity) => {
@@ -678,11 +864,12 @@ const stats = {
         const bestPSU = boostBTCperHour(item.boost[1]+stats.psu_term[rarity]*level,rarity)
         const worstPSU = boostBTCperHour(item.boost[0]+stats.psu_term[rarity]*level,rarity)
         const actualPSU = boostBTCperHour(boost,rarity)
-        const qualityRange = bestPSU - worstPSU
-        const actualRange = actualPSU - worstPSU
-        var psuRank = 1+((actualRange/qualityRange)*9)
-        if (psuRank < 1) psuRank = 1
-        return psuRank
+        const qualityRange = bestPSU - worstPSU;
+        const actualRange = actualPSU - worstPSU;
+        let psuRank = 1+((actualRange/qualityRange)*9);
+        if (psuRank < 1) psuRank = 1;
+
+        return psuRank;
     }
 
     const dFI = (hp, rd, rg, enc, level, rarity) => {
@@ -697,8 +884,9 @@ const stats = {
         const actualHoldout = penTest([hp,rd,rg],cpuV,enc/cpsAverage+.3);
         const qualityRange = worstHoldout - bestHoldout;
         const qualityActually = worstHoldout - actualHoldout;
-        var fireRank = 1+(qualityActually/qualityRange*9);
+        let fireRank = 1+(qualityActually/qualityRange*9);
         if (fireRank < 1) fireRank = 1;
+
         return fireRank;
     }
 	
@@ -706,7 +894,7 @@ const stats = {
         pen /= 100;
         chance /= 100;
         dam /= 100;
-        return [(100+hack)+(0.05+chance)*(100+hack)*(0.3+dam), pen, trueDam]
+        return [(100+hack)+(0.05+chance)*(100+hack)*(0.3+dam), pen, trueDam];
     }
 
     const dCI = (raw, pen, trueDam, level, rarity) => {
@@ -719,15 +907,12 @@ const stats = {
         const actual = port.hp/(raw*(1+pen-port.rd) + trueDam)
         const qualityRange = worst - best;
         const qualityActually = worst - actual;
-	var cpuRank = 1+((qualityActually/qualityRange)*9);
-	if (cpuRank < 1) cpuRank = 1;
+        let cpuRank = 1+((qualityActually/qualityRange)*9);
+        if (cpuRank < 1) cpuRank = 1;
+
         return cpuRank;
     }
-    // hack = Hack Damage
-    // trueDam = True Damage
-    // pen = Hack Armor Penetration
-    // chance = Hack Critical Damage Chance
-    // dam = Hack Critical Damage Bonus
+    
     const getItemGrade = (type, level, index, effects) => {
         switch(type) {
             case "cpu":
@@ -802,10 +987,8 @@ const stats = {
         description.querySelector(".level")?.parentNode.insertBefore(gradeComponent.element, description.querySelector(".effect"));
         description.style.width = "300px";
 
-        const price = dPS(grade,level,index,type)
-        description.querySelector(".level")?.parentNode.insertBefore(gradeComponent.element, description.querySelector(".effect"));
-        description.style.width = "300px";
-        var priceStandard = new Component("div", {
+        const price = dPS(grade,level,index,type);
+        const priceStandard = new Component("div", {
             id: "price",
             classList: ["attribute", "svelte-181npts"],
             innerHTML: `<img class="icon icon-in-text" src="icons/btc.svg" alt="Bitcoin Icon">${price}`,
@@ -813,32 +996,20 @@ const stats = {
         })
         description.querySelector(".level")?.parentNode.insertBefore(priceStandard.element, description.querySelector(".effect"));
         description.style.width = "300px";
+
     });
 
-    const raritiesVariables = {
-        "var(--color-SS)": "mythic",
-        "var(--color-S)" : "legendary",
-        "var(--color-A)" : "epic",
-        "var(--color-B)" : "rare",
-        "var(--color-C)" : "uncommon",
-        "var(--color-D)" : "common"
-    }
-    
-    const lootButtons = {
-        "take" : "button > img[src='icons/inventory.svg']",
-        "sell" : "button > img[src='icons/btc.svg']",
-        "shred": "button > img[src='icons/filament.svg']"
-    }
     let manageLoot = async () => {
         let item = document.querySelector(".window-loot > div > div > div > div > div > .item")
         if (item) {
-            console.log("item")
             let background = item.style.background
             let rarity = raritiesVariables[background];
             if (!rarity) rarity = raritiesVariables[background + ")"];
             let color = getComputedStyle(item).getPropertyValue(background.toString().slice(4, background.endsWith(")") ? -1 : background.length))
             if (rarity){
                 await sleep(200);
+                if (player.autoloot[rarity] === "take")
+                    await openWindow("Inventory", true);
                 const button = document.querySelector(lootButtons[player.autoloot[rarity]])
                 button?.click();
                 sendLog(`
@@ -848,8 +1019,7 @@ const stats = {
                     item
                 `);
                 await sleep(100);
-                let isInventoryOpen = document.querySelector(".window-title > img[src='icons/inventory.svg']")?.closest(".window-title")?.querySelector(".window-close")
-                isInventoryOpen?.click();
+                closeWindow("Inventory", true);
                 await sleep(500);
             }
         }
@@ -864,13 +1034,18 @@ const stats = {
         if (!newWindow)
             return;
 
+        const src = newWindow.addedNodes[0].querySelector(".window-title > img").src
+        const name = src.split("/")[src.split("/").length - 1].slice(0, -4);
+        if (player.configuration.openInSilent.includes(name)) {
+            newWindow.addedNodes[0].style.display = "none";
+            newWindow.addedNodes[0].classList.add("openInSilent");
+        }
         const isItem = newWindow.addedNodes[0].querySelector(".window-title > img[src='icons/loot.svg']")
         if (isItem)
             await manageLoot();
 
         const isFilamentWindow = newWindow.addedNodes[0].querySelector(".window-title > img[src='icons/filament.svg']")?.parentNode?.parentNode;
         if (isFilamentWindow) {
-            console.log("is filament window")
             const upgrader = isFilamentWindow.querySelectorAll("h3")[1];
             if (!upgrader)
                 return;
@@ -909,15 +1084,6 @@ const stats = {
             }
         }
 
-        const lootRarity = [
-            { name: "common",    color: "linear-gradient(211deg, #585d66 0%, #7d848f 100%)" },
-            { name: "uncommon",  color: "linear-gradient(211deg, #007c37 0%, #83b200 100%)" },
-            { name: "rare",      color: "linear-gradient(211deg, #00427c 0%, #0092ed 100%)" },
-            { name: "epic",      color: "linear-gradient(211deg, #5c045a 0%, #a90052 100%)" },
-            { name: "legendary", color: "linear-gradient(112deg, #a95300 4%, #ff9605 34%, #a95300 66%, #ff9605 100%)" },
-            { name: "mythic",    color: "linear-gradient(112deg, #40f5ff 4%, #05a8ff 34%, #40f5ff 66%, #05a8ff 100%)" },
-            { name: "ethereal",    color: "linear-gradient(112deg, #ffb74e 4%, #ffe6a2 34%, #ffb74e 66%, #ffe6a2 100%)" },
-        ];
         const isParamWindow = newWindow.addedNodes[0].querySelector(".window-title > img[src='icons/settings.svg']")?.parentNode?.parentNode;
         if (isParamWindow) {
             let currImage = localStorage.getItem("prettier-backgroundImage");
@@ -1087,7 +1253,6 @@ const stats = {
             const isHackingYou = player.hacksInProgress.find(e => e.hacker == hacked);
             if (!isHackingYou)
                 return;
-            console.log("you're countering")
             counterHack(isHackingYou);
         }
 
@@ -1097,7 +1262,6 @@ const stats = {
             const wasHackingYou = player.hacksInProgress.find(e => e.hacker === hacked);
             if (!wasHackingYou)
                 return;
-            console.log("bro was hacking you")
             wasHackingYou.hackLabel.innerText = "Successfully counter " + wasHackingYou.hackLabel.innerText.replace(/is hacking you \(\d+%\) on port \d+/, "")
             wasHackingYou.message.style.backgroundColor = "transparent";
             wasHackingYou.message.onclick = null;
@@ -1114,23 +1278,17 @@ const stats = {
     });
 
     const editWelcomeMessage = () => {
-        const message = document.querySelector(".window-title > img[src='icons/log.svg']").parentNode.parentNode.querySelector("#wrapper > div");
+        const message = document.querySelector(".window-title > img[src='icons/log.svg']")?.parentNode.parentNode.querySelector("#wrapper > div");
         if (!message)
             return;
         message.innerHTML = message.innerHTML
             .replace("System started.<br>", "")
-            .replace("s0urceOS 2023", "✨ Prettier d0urceOS V1.6 ✨")
-	        .replace(">.", ">. <br><span style='font-size: 0.8rem; color: var(--color-lightgrey);'>Tweaked by <span style='color: yellow; text-shadow: 0 0 3px yellow'>Naleg</span> 👀.</span>")
-            .replace(">.", ">. <br><span style='font-size: 0.8rem; color: var(--color-lightgrey);'>Expanded by <span style='color: chartreuse; text-shadow: 0 0 3px chartreuse'>d0t</span> 😍.</span>")
-            .replace(">.", `>. <br><span style='font-size: 0.8rem; color: var(--color-lightgrey);'>Template made with ❤️ by <span style='color: pink; text-shadow: 0 0 3px pink'>Xen0o2</span>.</span>`);
-        sendLog(`
-            <a href="https://www.buymeacoffee.com/doteki">Buy d0t a <span style='color: chartreuse; text-shadow: 0 0 3px chartreuse'>dCoffee</span> 😉</a>
-        `)
+            .replace("s0urceOS 2023", "✨ Prettier s0urce ✨")
+            .replace(">.", ">. <br><span style='font-size: 0.8rem; color: var(--color-lightgrey);'>Made with ❤️ by <span style='color: pink; text-shadow: 0 0 3px pink'>Xen0o2</span>.</span>");
+
         sendLog(`
             <div style="color: #52e7f7; text-shadow: 0 0 2px #0fa, 0 0 3px #52e7f7; letter-spacing: 0.3px; font-weight: lighter">
                 <img class="icon" src="https://www.svgrepo.com/show/523341/cpu.svg" style="filter: drop-shadow(50px 0px 100px #52e7f7) invert(96%) sepia(95%) saturate(7486%) hue-rotate(143deg) brightness(100%) contrast(94%);">
-                <img class="icon" src="https://www.svgrepo.com/show/532313/firewall.svg" style="filter: drop-shadow(50px 0px 100px #52e7f7) invert(96%) sepia(95%) saturate(7486%) hue-rotate(143deg) brightness(100%) contrast(94%);">
-                <img class="icon" src="https://www.svgrepo.com/show/533150/power-bank.svg" style="filter: drop-shadow(50px 0px 100px #52e7f7) invert(96%) sepia(95%) saturate(7486%) hue-rotate(143deg) brightness(100%) contrast(94%);">
                 Running d0t's Indexes (dTI)
             </div>
         `)
@@ -1209,11 +1367,11 @@ const stats = {
                     style: { position: "absolute", zIndex: "100", top: "0", height: "100vh", width: "100vw", backgroundColor: "black", opacity: "0.8", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" },
                     children: [
                         new Component("span", {
-                            innerText: "Prettier d0urce",
-                            style: { color: "cornflowerblue", textShadow: "0 0 3px blue", fontFamily: "var(--font-family-2)", fontWeight: "500", fontSize: "3rem", opacity: "1" }
+                            innerText: "Prettier s0urce",
+                            style: { color: "pink", textShadow: "0 0 3px pink", fontFamily: "var(--font-family-2)", fontWeight: "500", fontSize: "3rem", opacity: "1" }
                         }),
                         new Component("span", {
-                            innerText: "Running Version 1.6.1",
+                            innerText: "Made with ❤️ by Xen0o2",
                             style: { color: "var(--color-lightgrey)", fontFamily: "var(--font-family-2)", fontWeight: "500", fontSize: "2rem", marginTop: "20px" }
                         })
                     ]
@@ -1283,26 +1441,253 @@ const stats = {
             })   
         }
     }
+
+    const openWindow = async (windowName, openInSilent = false) => {
+        if (!windowNames.includes(windowName)) return;
+        if (openInSilent && !player.configuration.openInSilent.includes(windowName.split(/ /g).map((e, i) => i == 0 ? e.toLowerCase() : e).join("")))
+            player.configuration.openInSilent.push(windowName.split(/ /g).map((e, i) => i == 0 ? e.toLowerCase() : e).join(""))
+        const desktopIcon = document.querySelector(`img[alt='${windowName} Desktop Icon']`);
+        desktopIcon?.click();
+
+        await sleep(200);
+        const window = document.querySelector(`.window-title > img[src='icons/${windowName.split(/ /g).map((e, i) => i == 0 ? e.toLowerCase() : e).join("")}.svg']`)?.parentNode.parentNode;
+        return window;
+    }
+
+    const closeWindow = (windowName, onlyIfSilent = false) => {
+        if (!windowNames.includes(windowName)) return;
+        const index = player.configuration.openInSilent.indexOf(windowName.split(/ /g).map((e, i) => i == 0 ? e.toLowerCase() : e).join(""));
+        if (index >= 0) player.configuration.openInSilent.splice(index, 1);
+
+        const windowToClose = document.querySelector(`.window-title > img[src='icons/${windowName.split(/ /g).map((e, i) => i == 0 ? e.toLowerCase() : e).join("")}.svg']`)?.parentNode.parentNode;
+        if (!windowToClose) return;
+
+        if (onlyIfSilent && windowToClose.classList.contains("openInSilent"))
+            windowToClose.querySelector(".window-close")?.click();
+        else if (!onlyIfSilent)
+            windowToClose.querySelector(".window-close")?.click();
+            
+    }
+
+    const moveItem = async (item, slot) => {  
+        item.dispatchEvent(new MouseEvent("mousedown"));
+        item.parentNode.dispatchEvent(new MouseEvent("dragstart"));
+        slot.parentNode.dispatchEvent(new MouseEvent("drop"));
+        await sleep(50);
+    }
+
+    const shredFromContextMenu = async () => {
+        const rarities = player.selectedItems.map(item => raritiesVariables[item.style.background] || raritiesVariables[item.style.background + ")"]);
+        if (
+            rarities.some(rarity => ["legendary", "mythic", "ethereal"].includes(rarity)) &&
+            !confirm(`You're about to shred a Legendary, Mythic or Ethereal item ! Are you sure about that ?`)
+        ) return;
+        const filamentWindow = await openWindow("Filament", true);
+        if (!filamentWindow) return;
+        for (let index in player.selectedItems) {
+            const item = player.selectedItems[index];
+            const background = item.style.background;
+            const rarity = raritiesVariables[background] || raritiesVariables[background + ")"];
+            const slot = filamentWindow.querySelectorAll(".item-slot")[index % 5];
+            const color = lootRarity.find(e => e.name === rarity)?.color;
+            await moveItem(item, slot);
+            sendLog(`
+                <img class="icon" src="icons/check.svg"/>
+                Successfully shred a
+                <span style='background: ${color}; border-radius: 5px; padding: 2px 5px 2px 5px;'>${rarity}</span>
+                item
+            `);
+            if ((Number(index) + 1) % 5 == 0) {
+                filamentWindow.querySelector("button.green")?.click();
+                await sleep(200);
+            }
+        }
+        await sleep(200);
+        filamentWindow.querySelector("button.green")?.click();
+        closeWindow("Filament", true);
+    }
+    
+    const sellFromContextMenu = async (item) => {
+        const rarities = player.selectedItems.map(item => raritiesVariables[item.style.background] || raritiesVariables[item.style.background + ")"]);
+        if (
+            rarities.some(rarity => ["legendary", "mythic", "ethereal"].includes(rarity)) &&
+            !confirm(`You're about to sell a Legendary, Mythic or Ethereal item ! Are you sure about that ?`)
+        ) return;
+        const itemSellerWindow = await openWindow("Item Seller", true);
+        if (!itemSellerWindow) return;
+        for (let item of player.selectedItems) {
+            const slot = itemSellerWindow.querySelector(".item-slot");
+            await moveItem(item, slot);
+            await sleep(100);
+            itemSellerWindow.querySelector("button.green")?.click();
+            await sleep(400);
+        }
+        closeWindow("Item Seller", true);
+    }
+
+    const unequipItem = async (item) => {
+        await openWindow("Inventory", true);
+        item.parentNode.dispatchEvent(new MouseEvent("dblclick"));
+        await sleep(100);
+        closeWindow("Inventory", true);
+    }
+    
+    const equipBasicItem = async (item) => {
+        await openWindow("Computer", true);
+        item.parentNode.dispatchEvent(new MouseEvent("dblclick"));
+        await sleep(100);
+        closeWindow("Computer", true);
+    }
+
+    const manageRightClickOnItem = (item, pointer) => {
+        const src = item.closest(".window").querySelector(".window-title > img")?.src
+        const windowName = src?.split("/")[src.split("/").length - 1].slice(0, -4);
+        if (!windowName) return;
+
+        if (!player.selectedItems.includes(item)) {
+            removeContextMenu();
+            player.selectedItems = [item]
+        }
+
+        item.parentNode.parentNode.classList.add("item-selected");
+        item.parentNode.parentNode.style.outline = "3px solid var(--color-terminal)";
+        const popup = new Popup(pointer);
+        const type = (item.querySelector("img")?.src?.match(/[^\/]+\.webp/) || [])[0]?.slice(0, -7);
+        if (player.selectedItems.length > 1)
+            popup.setTitle(`${player.selectedItems.length} items selected`)
+        if (["cpu", "gpu", "psu"].includes(type) && player.selectedItems.length == 1) {
+            if (windowName === "computer")
+                popup.addAction("Unequip", () => unequipItem(item), {selectionLimit: 1});
+            else
+                popup.addAction("Equip", () => equipBasicItem(item), {selectionLimit: 1});
+        }
+        const tradeWindow = document.querySelector(".window:has(.window-title > img[src='icons/trade.svg']");
+        if (tradeWindow) {
+            const alreadyInTrade = tradeWindow.querySelector(".offer-wrapper")?.querySelectorAll(".item").length;
+            popup.addAction("Trade", async () => {
+                const slots = tradeWindow.querySelector(".offer-wrapper").querySelectorAll(".item-slot:not(.item-slot-hasitem");
+                for (let index in player.selectedItems) {
+                    const item = player.selectedItems[index];
+                    const slot = slots[index];
+                    moveItem(item, slot);
+                    await sleep(1000);
+                }
+            }, {selectionLimit: 6 - alreadyInTrade});
+        }
+        popup
+            .addAction("Shred", shredFromContextMenu, {isDangerous: true})
+            .addAction("Sell", sellFromContextMenu, {isDangerous: true})
+            .create();
+    }
+
+    const manageRightClickOnDesktop = (pointer) => {
+        new Popup(pointer)
+        .addAction("Edit background", async () => {
+            document.querySelectorAll(".topbar-clickable")[1].click()
+            await sleep(150);
+            const settings = document.querySelector(".window-title > img[src='icons/settings.svg']").parentNode.parentNode;
+            settings.querySelector(".window-content > div").scrollTop = 300
+        })
+        .create();
+    }
+
+    const manageRightClickOnPlayer = (player, pointer) => {
+        new Popup(pointer)
+        .addAction("Send message", async () => {
+            player.click();
+            await sleep(100);
+            document.querySelector("button.blue")?.click();
+            document.querySelector(".window-title > img[src='icons/target.svg']")?.parentNode.querySelector(".window-close")?.click();
+        })
+        .addAction("Trade", async () => {
+            player.click();
+            await sleep(100);
+            document.querySelector("button.yellow")?.click();
+            document.querySelector(".window-title > img[src='icons/target.svg']")?.parentNode.querySelector(".window-close")?.click();
+        })
+        .create();
+    }
+
+    const manageRightClick = (target, pointer) => {
+        if (document.querySelector(".context-menu"))
+            removeContextMenu();
+        const windowClicked = target.closest(".window")
+        if (target.parentNode
+            && target.parentNode.classList.contains("item")
+            && ["Computer", "Inventory", "Trade"].includes(windowClicked?.querySelector(".window-title > img")?.alt))
+                manageRightClickOnItem(target.parentNode, pointer);
+        if (target.id == "desktop-container" || target.classList.contains("empty"))
+            manageRightClickOnDesktop(pointer);
+        if (target.classList.contains("message-name"))
+            manageRightClickOnPlayer(target, pointer);
+    }
+
+    const manageItemSelection = (item) => {
+        if (player.input.isShiftDown) {
+            player.selectedItems.push(item);
+            document.querySelectorAll(`.context-menu-option-limit-${player.selectedItems.length + 1}`).forEach(e => e.remove());
+    
+            if (document.querySelector(".context-menu")) {
+                document.querySelector(".context-menu-title").innerText = `${player.selectedItems.length} items selected`;
+                document.querySelector(".context-menu-title").style.display = "flex";
+            }
+        } else player.selectedItems = [item]
+        item.parentNode.parentNode.classList.add("item-selected");
+        item.parentNode.parentNode.style.outline = "3px solid var(--color-terminal)";
+        player.selectedItems.sort((b, a) => {
+            return  ([...a.parentNode?.parentNode?.parentNode?.parentNode.children].indexOf(a.parentNode?.parentNode?.parentNode) || 0) - 
+                    ([...b.parentNode?.parentNode?.parentNode?.parentNode.children].indexOf(b.parentNode?.parentNode?.parentNode) || 0)
+        })
+    }
+
+    const loadUserInputManager = () => {
+        document.body.addEventListener("mousedown", (e) => {
+            if (e.buttons != 1) return;
+            const windowClicked = e.target.closest(".window");
+            if (!e.target.classList.contains("context-menu") && !player.input.isShiftDown)
+                removeContextMenu();
+            if (e.target.parentNode
+                && e.target.parentNode.classList.contains("item")
+                && ["Computer", "Inventory", "Trade"].includes(windowClicked?.querySelector(".window-title > img")?.alt)
+            )
+                manageItemSelection(e.target.parentNode);
+                
+        })
+        document.body.oncontextmenu = (e) => {
+            e.preventDefault();
+            manageRightClick(e.target, { clientX: e.clientX, clientY: e.clientY });
+        }
+        document.body.onkeydown = (e) => {
+            if (e.key === "Shift")
+                player.input.isShiftDown = true;
+        }
+        document.body.onkeyup = (e) => {
+            if (e.key === "Shift")
+                player.input.isShiftDown = false;
+        }
+    }
     
     (async () => {
         while (document.querySelector("#login-top") || window.location.href !== "https://s0urce.io/")
             await sleep(500);
         loadingScreen("create");
-        createObserver();
         editFilaments();
+        customTerminal();
+        createObserver();
         editProgressBar();
-        editWelcomeMessage();
         loadLocalStorage();
         updateThemeStyle();
-        customTerminal();
         await loadScripts();
+        editWelcomeMessage();
+        loadUserInputManager();
         await sleep(1000);
         loadingScreen("delete");
-    })()
-
+    })();
 })();
 
-// Page Break
+// Bitcoin thingy copied from d0urce
+// I like bitcoin thingy
+// Bitcoin thingy is cool
 
 var send=WebSocket.prototype.send, inboundLog=true, outboundLog=true
 
@@ -1365,7 +1750,7 @@ WebSocket.prototype.send=function(d){
     if(typeof x!=="object") return console.log(data);
     
     traverse(x,function(o){
-      if(o?.btc) o.username+=` (₿${parseFloat(o.btc).toFixed(2)})`;
+      if(o?.btc) o.username+=` (₿${parseFloat(o.btc).toFixed(2)})`;)
     })
     if(x[1]?.event==="gotGlobalRoomLogs"){
       x[1].arguments[0]=x[1].arguments[0].map(a=>{
