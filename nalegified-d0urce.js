@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         beta-nalegified-d0urce
+// @name         nalegified-d0urce
 // @version      1.6.4
 // @description  Get a prettier s0urce.io environment! Template made by Xen0o2.
 // @author       Xen0o2, d0t, Naleg
