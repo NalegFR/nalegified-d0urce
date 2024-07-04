@@ -1692,6 +1692,10 @@ const stats = {
 // I like bitcoin thingy
 // Bitcoin thingy is cool
 
+// Bitcoin thingy has been commented because it breaks stuff
+// Bitcoin thingy mean
+// Bitcoin thingy bad
+/*
 var send=WebSocket.prototype.send, inboundLog=true, outboundLog=true
 
 function traverse(obj,fn){
@@ -1769,3 +1773,4 @@ WebSocket.prototype.send=function(d){
     event.data=data
     if(inboundLog) console.log(data);
   })
+*/
