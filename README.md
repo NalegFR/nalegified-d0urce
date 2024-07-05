@@ -2,7 +2,7 @@
 I just wondered how I could code in some features I wanted in prettier or prettier d0urce.
 So, I learnt javascript for like 2 days and brought this to life.
 This can be really unstable because I'm not a pro javascript programmer at all  
-**This is made on the never seen before 1.6.4 version of d0urce (unofficial)**
+**This is made on the (now official) version 1.6.4 of d0urce**
 ## New features
 - ~~Customizable image background~~ Was added to Xen0o2's prettier
 - That's it
@@ -22,11 +22,10 @@ Two ways :
 2. Right click on s0urce desktop and click "Edit background"
 
 # Known issues
-There are no issues because we are perfect developers
+There are no issues because we are all perfect developers
 
 # TODO
-- ~~Update to new d0urce version~~ I updated from the future
-- Display BTC amount on profile instead of username
+- Display BTC amount on profile instead of username (currently it's disabled because it breaks a ton of things)
 - Colors for background
 - NPC Editor (change locally NPC's name, descriptions, and PFPs) (how am I gonna do that)
 - More things when I'll get the idea
