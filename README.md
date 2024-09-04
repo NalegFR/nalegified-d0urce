@@ -1,3 +1,6 @@
+# REALLY REALLY OUTDATED
+This will not be updated anymore. Not because I barely play the game anymore, but because I'd rather do it on Xen0o2's prettier directly
+
 # d0urce, but modified
 I just wondered how I could code in some features I wanted in prettier or prettier d0urce.
 So, I learnt javascript for like 2 days and brought this to life.
